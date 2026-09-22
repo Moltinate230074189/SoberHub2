@@ -1,0 +1,8 @@
+{
+  "name": "sober-hub-full-stack",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Sober Hub full-stack Vercel application with Neon PostgreSQL, email verification and Stripe checkout",
+  "scripts": {"dev":"vercel dev","start":"vercel dev"},
+  "dependencies": {"@neondatabase/serverless":"^1.0.1","bcryptjs":"^3.0.2","jsonwebtoken":"^9.0.2","stripe":"^18.5.0"}
+}
