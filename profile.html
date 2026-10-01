@@ -1,1 +1,219 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Profile</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow">MEMBER PROFILE</span><h1>My Profile</h1><p class="page-intro">Manage your Sober Hub member information.</p><section class="form"><div class="formgrid"><label>First name<input id="firstName" value="Member"></label><label>Last name<input id="lastName" value="Sober Hub"></label><label>Email<input id="profileEmail" value="member@soberhub.demo" readonly></label><label>Phone<input id="phone" value=""></label><label>Recovery goal<select><option>Building a healthier future</option><option>Staying connected</option><option>Developing skills</option></select></label><label>Membership<select><option>Active — R50–R100 / month</option></select></label></div><label>About you<textarea rows="4">I am using Sober Hub to stay connected to support, develop practical skills and work towards a productive future.</textarea></label><button id="saveProfile" class="btn primary">Save Changes</button></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sober Hub | Profile</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <a class="brand" href="dashboard.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="Logo.jpeg" alt="Sober Hub Logo" style="height: 32px; width: 32px; border-radius: 6px; object-fit: cover;">
+      Sober Hub
+    </a>
+    <a class="back" href="index.html"> ← Website </a>
+
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="back" href="dashboard.html">
+        ← Dashboard
+      </a>
+      <button class="btn outline" id="logoutBtn">
+        Log out
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+    <span class="eyebrow">MEMBER PROFILE</span>
+    <h1>My Profile</h1>
+    <p class="page-intro">Manage your Sober Hub member information.</p>
+
+    <!-- PROFILE FORM -->
+    <section class="form">
+      <div class="formgrid">
+
+        <!-- FIRST NAME -->
+        <label>
+          First name
+          <input id="firstName" type="text" value="" readonly>
+        </label>
+
+        <!-- LAST NAME -->
+        <label>
+          Last name
+          <input id="lastName" type="text" value="" readonly>
+        </label>
+
+        <!-- EMAIL -->
+        <label>
+          Email
+          <input id="profileEmail" type="email" value="" readonly>
+        </label>
+
+        <!-- PHONE -->
+        <label>
+          Phone
+          <input id="phone" type="tel" value="" placeholder="Enter your phone number">
+        </label>
+
+        <!-- RECOVERY GOAL -->
+        <label>
+          Recovery goal
+          <select id="recoveryGoal">
+            <option>Building a healthier future</option>
+            <option>Staying connected</option>
+            <option>Developing skills</option>
+          </select>
+        </label>
+
+        <!-- MEMBERSHIP -->
+        <label>
+          Membership
+          <select id="membership" disabled>
+            <option>Active — R50–R100 / month</option>
+          </select>
+        </label>
+
+      </div>
+
+      <!-- ABOUT -->
+      <label>
+        About you
+        <textarea id="about" rows="4">I am using Sober Hub to stay connected to support, develop practical skills and work towards a productive future.</textarea>
+      </label>
+
+      <button id="saveProfile" class="btn primary" type="button">
+        Save Changes
+      </button>
+
+      <p id="profileMessage" class="form-msg" style="margin-top:10px;"></p>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      /*
+       * CHECK LOGIN
+       */
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      if (!loggedInUser) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      /*
+       * GET PROFILE INFORMATION
+       */
+      const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
+
+      /*
+       * GET FORM ELEMENTS
+       */
+      const firstName = document.getElementById("firstName");
+      const lastName = document.getElementById("lastName");
+      const profileEmail = document.getElementById("profileEmail");
+      const phone = document.getElementById("phone");
+      const recoveryGoal = document.getElementById("recoveryGoal");
+      const about = document.getElementById("about");
+      const message = document.getElementById("profileMessage");
+      const saveButton = document.getElementById("saveProfile");
+      const logoutButton = document.getElementById("logoutBtn");
+
+      /*
+       * DISPLAY REGISTERED FIRST NAME
+       * 
+       * FIXED: Only uses your exact registration string data.
+       */
+      const registeredNameString = localStorage.getItem('registeredNameString');
+      
+      if (profile.firstName) {
+        firstName.value = profile.firstName;
+      } else if (registeredNameString) {
+        firstName.value = registeredNameString.split(' ')[0];
+      } else {
+        firstName.value = "User"; 
+      }
+
+      /*
+       * DISPLAY LAST NAME
+       */
+      if (profile.lastName) {
+        lastName.value = profile.lastName;
+      } else if (registeredNameString && registeredNameString.split(' ').length > 1) {
+        lastName.value = registeredNameString.split(' ').slice(1).join(' ');
+      } else {
+        lastName.value = "";
+      }
+
+      /*
+       * DISPLAY EMAIL
+       */
+      // If loggedInUser is an email address, show it, otherwise leave empty or use fallback placeholder
+      if (profile.email) {
+        profileEmail.value = profile.email;
+      } else if (loggedInUser && loggedInUser.includes('@')) {
+        profileEmail.value = loggedInUser;
+      } else {
+        profileEmail.value = "";
+      }
+
+      /*
+       * DISPLAY PHONE
+       */
+      phone.value = profile.phone || "";
+
+      /*
+       * DISPLAY RECOVERY GOAL
+       */
+      if (profile.recoveryGoal) {
+        recoveryGoal.value = profile.recoveryGoal;
+      }
+
+      /*
+       * DISPLAY ABOUT INFORMATION
+       */
+      if (profile.about) {
+        about.value = profile.about;
+      }
+
+      /*
+       * SAVE PROFILE
+       */
+      saveButton.addEventListener("click", function () {
+        const updatedProfile = {
+          firstName: firstName.value.trim(),
+          lastName: lastName.value.trim(),
+          email: profileEmail.value.trim(),
+          phone: phone.value.trim(),
+          recoveryGoal: recoveryGoal.value,
+          about: about.value.trim()
+        };
+
+        localStorage.setItem("userProfile", JSON.stringify(updatedProfile));
+        localStorage.setItem('registeredNameString', updatedProfile.firstName);
+
+        message.style.color = "#2E7D32";
+        message.textContent = "✓ Profile changes saved successfully.";
+      });
+
+      /*
+       * LOG OUT
+       */
+      logoutButton.addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+        localStorage.removeItem("registeredNameString");
+        window.location.href = "login.html";
+      });
+
+    });
+  </script>
+
+</body>
+</html>

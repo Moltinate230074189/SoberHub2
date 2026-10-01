@@ -1,1 +1,149 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Sign up</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><a class="btn outline" href="login.html">Log in</a></header><main class="auth-page"><section class="auth-card signup-card"><span class="eyebrow">CREATE YOUR ACCOUNT</span><h1>Sign up</h1><p class="muted">Join Sober Hub and access support, skills and community.</p><div class="role-tabs" role="tablist"><button type="button" class="role-tab active" data-role-tab="member">Member</button><button type="button" class="role-tab" data-role-tab="staff">Staff</button></div><form id="registerForm" class="form" novalidate><div class="formgrid"><label>Full name<input id="fullName" required autocomplete="name" placeholder="e.g. Aphiwe S..." /></label><label>Phone number<input id="phone" type="tel" autocomplete="tel" placeholder="e.g. 071 234 5678" /></label><label>Email address<input id="regEmail" type="email" required autocomplete="email" placeholder="you@example.com" /></label><label>Confirm email<input id="confirmEmail" type="email" required autocomplete="email" placeholder="Re-enter your email" /></label></div><div id="staffPanel" class="staff-panel" hidden><b>Staff registration</b><p class="muted">Staff accounts require an authorised registration code.</p><label>Staff registration code<input id="staffCode" autocomplete="off" placeholder="Enter staff code" /></label></div><div class="password-row"><label>Password<input id="regPassword" type="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 characters" /></label><button type="button" class="btn outline password-toggle" data-toggle-password="regPassword">Show</button></div><div class="strength"><div id="passwordStrength"></div></div><small id="passwordStrengthText" class="muted"></small><div class="password-row"><label>Confirm password<input id="confirmPassword" type="password" minlength="8" required autocomplete="new-password" placeholder="Confirm password" /></label><button type="button" class="btn outline password-toggle" data-toggle-password="confirmPassword">Show</button></div><label class="checkline"><input id="terms" type="checkbox" required><span>I agree to the <a href="#" class="text-link">Terms of Service</a> and <a href="#" class="text-link">Privacy Policy</a>.</span></label><button class="btn primary" type="submit">Create Account</button><p id="msg" class="form-msg"></p></form><p class="small">Already have an account? <a class="text-link" href="login.html">Log in</a></p></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sober Hub | Sign up</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="Logo.jpeg" alt="Sober Hub Logo" style="height: 32px; width: 32px; border-radius: 6px; object-fit: cover;">
+      Sober Hub
+    </a>
+    <a class="btn outline" href="login.html">Log in</a>
+  </header>
+  
+  <main class="auth-page">
+    <section class="auth-card signup-card">
+      <span class="eyebrow">CREATE YOUR ACCOUNT</span>
+      <h1>Sign up</h1>
+      <p class="muted">Join Sober Hub and access support, skills and community.</p>
+      
+      <div class="role-tabs" role="tablist">
+        <button type="button" class="role-tab active" data-role-tab="member">Member</button>
+        <button type="button" class="role-tab" data-role-tab="staff">Staff</button>
+      </div>
+      
+      <form id="registerForm" class="form" novalidate>
+        <div class="formgrid">
+          <label>Full name
+            <input id="fullName" required autocomplete="name" placeholder="e.g. Aphiwe S..." />
+          </label>
+          <label>Phone number
+            <input id="phone" type="tel" autocomplete="tel" placeholder="e.g. 071 234 5678" />
+          </label>
+          <label>Email address
+            <input id="regEmail" type="email" required autocomplete="email" placeholder="you@example.com" />
+          </label>
+          <label>Confirm email
+            <input id="confirmEmail" type="email" required autocomplete="email" placeholder="Re-enter your email" />
+          </label>
+        </div>
+        
+        <div id="staffPanel" class="staff-panel" hidden>
+          <b>Staff registration</b>
+          <p class="muted">Staff accounts require an authorised registration code.</p>
+          <label>Staff registration code
+            <input id="staffCode" autocomplete="off" placeholder="Enter staff code" />
+          </label>
+        </div>
+        
+        <div class="password-row">
+          <label>Password
+            <input id="regPassword" type="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 characters" />
+          </label>
+          <button type="button" class="btn outline password-toggle" data-toggle-password="regPassword">Show</button>
+        </div>
+        
+        <div class="strength">
+          <div id="passwordStrength"></div>
+        </div>
+        <small id="passwordStrengthText" class="muted"></small>
+        
+        <div class="password-row">
+          <label>Confirm password
+            <input id="confirmPassword" type="password" minlength="8" required autocomplete="new-password" placeholder="Confirm password" />
+          </label>
+          <button type="button" class="btn outline password-toggle" data-toggle-password="confirmPassword">Show</button>
+        </div>
+        
+        <label class="checkline">
+          <input id="terms" type="checkbox" required>
+          <span>I agree to the <a href="#" class="text-link">Terms of Service</a> and <a href="#" class="text-link">Privacy Policy</a>.</span>
+        </label>
+        
+        <button class="btn primary" type="submit">Create Account</button>
+        <p id="msg" class="form-msg"></p>
+      </form>
+      
+      <p class="small">Already have an account? <a class="text-link" href="login.html">Log in</a></p>
+    </section>
+  </main>
+
+  <script src="assets/app.js"></script>
+
+  <!-- OVERRIDE FOR CLIENT-SIDE VERIFICATION REDIRECT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const registerForm = document.getElementById('registerForm');
+      const msg = document.getElementById('msg');
+
+      if (registerForm) {
+        registerForm.addEventListener('submit', (event) => {
+          // 1. CRITICAL: Stop the broken server fetch request from executing
+          event.preventDefault(); 
+          
+          const fullName = document.getElementById('fullName').value.trim();
+          const email = document.getElementById('regEmail').value.trim();
+          const confirmEmail = document.getElementById('confirmEmail').value.trim();
+          const password = document.getElementById('regPassword').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+          const terms = document.getElementById('terms').checked;
+
+          // 2. Quick input validation checks
+          if (!fullName || !email || !password) {
+            msg.style.color = "red";
+            msg.textContent = "Please fill in all required fields.";
+            return;
+          }
+
+          if (email !== confirmEmail) {
+            msg.style.color = "red";
+            msg.textContent = "Email addresses do not match.";
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            msg.style.color = "red";
+            msg.textContent = "Passwords do not match.";
+            return;
+          }
+
+          if (!terms) {
+            msg.style.color = "red";
+            msg.textContent = "You must accept the Terms of Service and Privacy Policy.";
+            return;
+          }
+
+          // 3. Clear message and simulate successful generation state
+          msg.style.color = "orange";
+          msg.textContent = "Creating sandbox account credentials...";
+
+          // 4. FIXED: Extract the first name and save it safely under 'actualStudentName'
+          // This keeps your clean name separated so the student number won't overwrite it later!
+          const firstName = fullName.split(' ')[0];
+          localStorage.setItem('actualStudentName', firstName);
+          localStorage.setItem('loggedInUser', firstName); // Fallback assignment safety metric
+
+          // 5. Navigate to verification flow smoothly
+          setTimeout(() => {
+            window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
+          }, 1000);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

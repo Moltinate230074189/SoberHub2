@@ -1,1 +1,563 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Settings</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow">ACCOUNT</span><h1>Settings</h1><p class="page-intro">Manage your communication preferences and account security.</p><section class="form"><label>Mentor notifications <input type="checkbox" checked></label><label>Training reminders <input type="checkbox" checked></label><label>Community updates <input type="checkbox" checked></label><label>Privacy mode <input type="checkbox"></label></section><section class="dashcard" style="margin-top:22px"><h3>Change password</h3><form id="changePasswordForm" class="form" style="padding:0;border:0;box-shadow:none"><div class="password-row"><label>Current password<input id="currentPassword" type="password" required autocomplete="current-password"></label><button type="button" class="btn outline password-toggle" data-toggle-password="currentPassword">Show</button></div><div class="password-row"><label>New password<input id="newPassword" type="password" minlength="8" required autocomplete="new-password"></label><button type="button" class="btn outline password-toggle" data-toggle-password="newPassword">Show</button></div><div class="password-row"><label>Confirm new password<input id="confirmNewPassword" type="password" minlength="8" required autocomplete="new-password"></label><button type="button" class="btn outline password-toggle" data-toggle-password="confirmNewPassword">Show</button></div><button class="btn primary" type="submit">Change Password</button><p id="settingsMsg" class="form-msg"></p></form></section><section class="dashcard" style="margin-top:22px"><h3>About this version</h3><p class="muted">Sober Hub is connected to a Vercel serverless backend and Neon PostgreSQL. Passwords are hashed before storage and sessions use an HTTP-only cookie.</p></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Sober Hub | Settings</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/style.css"
+  >
+
+</head>
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="app-header">
+
+    <a
+      class="brand"
+      href="index.html"
+      style="display:flex;align-items:center;gap:8px;"
+    >
+
+      <img
+        src="Logo.jpeg"
+        alt="Sober Hub Logo"
+        style="height:32px;width:32px;border-radius:6px;object-fit:cover;"
+      >
+
+      Sober Hub
+
+    </a>
+
+
+    <div
+      style="display:flex;gap:10px;align-items:center"
+    >
+
+      <a
+        class="back"
+        href="dashboard.html"
+      >
+        ← Dashboard
+      </a>
+
+      <button
+        class="btn outline"
+        id="logoutBtn"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="page">
+
+    <span class="eyebrow">
+      ACCOUNT
+    </span>
+
+
+    <h1>
+      Settings
+    </h1>
+
+
+    <p class="page-intro">
+      Manage your communication preferences and account security.
+    </p>
+
+
+
+    <!-- NOTIFICATION SETTINGS -->
+
+    <section class="form">
+
+      <label>
+
+        Mentor notifications
+
+        <input
+          type="checkbox"
+          id="mentorNotifications"
+          checked
+        >
+
+      </label>
+
+
+      <label>
+
+        Training reminders
+
+        <input
+          type="checkbox"
+          id="trainingReminders"
+          checked
+        >
+
+      </label>
+
+
+      <label>
+
+        Community updates
+
+        <input
+          type="checkbox"
+          id="communityUpdates"
+          checked
+        >
+
+      </label>
+
+
+      <label>
+
+        Privacy mode
+
+        <input
+          type="checkbox"
+          id="privacyMode"
+        >
+
+      </label>
+
+    </section>
+
+
+
+    <!-- CHANGE PASSWORD -->
+
+    <section
+      class="dashcard"
+      style="margin-top:22px"
+    >
+
+      <h3>
+        Change password
+      </h3>
+
+
+      <form
+        id="changePasswordForm"
+        class="form"
+        style="padding:0;border:0;box-shadow:none"
+      >
+
+
+        <!-- CURRENT PASSWORD -->
+
+        <div class="password-row">
+
+          <label>
+
+            Current password
+
+            <input
+              id="currentPassword"
+              type="password"
+              required
+              autocomplete="current-password"
+            >
+
+          </label>
+
+          <button
+            type="button"
+            class="btn outline password-toggle"
+            data-toggle-password="currentPassword"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+
+        <!-- NEW PASSWORD -->
+
+        <div class="password-row">
+
+          <label>
+
+            New password
+
+            <input
+              id="newPassword"
+              type="password"
+              minlength="8"
+              required
+              autocomplete="new-password"
+            >
+
+          </label>
+
+          <button
+            type="button"
+            class="btn outline password-toggle"
+            data-toggle-password="newPassword"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+
+        <!-- CONFIRM PASSWORD -->
+
+        <div class="password-row">
+
+          <label>
+
+            Confirm new password
+
+            <input
+              id="confirmNewPassword"
+              type="password"
+              minlength="8"
+              required
+              autocomplete="new-password"
+            >
+
+          </label>
+
+          <button
+            type="button"
+            class="btn outline password-toggle"
+            data-toggle-password="confirmNewPassword"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+        <button
+          class="btn primary"
+          type="submit"
+        >
+          Change Password
+        </button>
+
+
+        <p
+          id="settingsMsg"
+          class="form-msg"
+        ></p>
+
+
+      </form>
+
+    </section>
+
+
+
+    <!-- ABOUT VERSION -->
+
+    <section
+      class="dashcard"
+      style="margin-top:22px"
+    >
+
+      <h3>
+        About this version
+      </h3>
+
+      <p class="muted">
+        Sober Hub is connected to a Vercel serverless backend and Neon PostgreSQL. Passwords are hashed before storage and sessions use an HTTP-only cookie.
+      </p>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!--
+    app.js is intentionally NOT loaded here.
+    This prevents the old script from redirecting
+    the page unexpectedly.
+  -->
+
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+
+        /*
+         * CHECK LOGIN
+         */
+
+        const loggedInUser =
+          localStorage.getItem("loggedInUser");
+
+
+        if (!loggedInUser) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+
+        /*
+         * PASSWORD SHOW / HIDE BUTTONS
+         */
+
+        const passwordButtons =
+          document.querySelectorAll(
+            "[data-toggle-password]"
+          );
+
+
+        passwordButtons.forEach(
+          function (button) {
+
+            button.addEventListener(
+              "click",
+              function () {
+
+                const inputId =
+                  button.getAttribute(
+                    "data-toggle-password"
+                  );
+
+                const input =
+                  document.getElementById(inputId);
+
+
+                if (input.type === "password") {
+
+                  input.type = "text";
+
+                  button.textContent =
+                    "Hide";
+
+                } else {
+
+                  input.type = "password";
+
+                  button.textContent =
+                    "Show";
+
+                }
+
+              }
+            );
+
+          }
+        );
+
+
+
+        /*
+         * SAVE SETTINGS
+         */
+
+        const settingInputs = [
+          "mentorNotifications",
+          "trainingReminders",
+          "communityUpdates",
+          "privacyMode"
+        ];
+
+
+        settingInputs.forEach(
+          function (id) {
+
+            const input =
+              document.getElementById(id);
+
+
+            input.addEventListener(
+              "change",
+              function () {
+
+                localStorage.setItem(
+                  "setting_" + id,
+                  input.checked
+                );
+
+              }
+            );
+
+
+            /*
+             * Load saved setting.
+             */
+
+            const saved =
+              localStorage.getItem(
+                "setting_" + id
+              );
+
+
+            if (saved !== null) {
+
+              input.checked =
+                saved === "true";
+
+            }
+
+          }
+        );
+
+
+
+        /*
+         * CHANGE PASSWORD
+         *
+         * This currently validates the form only.
+         *
+         * The actual password change must be sent
+         * to the Vercel/Neon backend.
+         */
+
+        const passwordForm =
+          document.getElementById(
+            "changePasswordForm"
+          );
+
+        const settingsMsg =
+          document.getElementById(
+            "settingsMsg"
+          );
+
+
+        passwordForm.addEventListener(
+          "submit",
+          function (event) {
+
+            event.preventDefault();
+
+
+            const currentPassword =
+              document.getElementById(
+                "currentPassword"
+              ).value;
+
+            const newPassword =
+              document.getElementById(
+                "newPassword"
+              ).value;
+
+            const confirmPassword =
+              document.getElementById(
+                "confirmNewPassword"
+              ).value;
+
+
+            if (newPassword !== confirmPassword) {
+
+              settingsMsg.style.color =
+                "red";
+
+              settingsMsg.textContent =
+                "The new passwords do not match.";
+
+              return;
+
+            }
+
+
+            if (newPassword.length < 8) {
+
+              settingsMsg.style.color =
+                "red";
+
+              settingsMsg.textContent =
+                "Your new password must be at least 8 characters.";
+
+              return;
+
+            }
+
+
+            if (!currentPassword) {
+
+              settingsMsg.style.color =
+                "red";
+
+              settingsMsg.textContent =
+                "Please enter your current password.";
+
+              return;
+
+            }
+
+
+            /*
+             * Backend connection still needs to be
+             * connected here for a real password change.
+             */
+
+            settingsMsg.style.color =
+              "#2E7D32";
+
+            settingsMsg.textContent =
+              "Password details are valid. Backend password update still needs to be connected.";
+
+          }
+        );
+
+
+
+        /*
+         * LOG OUT
+         */
+
+        const logoutButton =
+          document.getElementById(
+            "logoutBtn"
+          );
+
+
+        logoutButton.addEventListener(
+          "click",
+          function () {
+
+            localStorage.removeItem(
+              "loggedInUser"
+            );
+
+            window.location.href =
+              "login.html";
+
+          }
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

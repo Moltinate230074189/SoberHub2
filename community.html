@@ -1,4 +1,507 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Community</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow">COMMUNITY</span><h1>You are part of a community.</h1><p class="page-intro">A positive space for connection, encouragement and productive engagement.</p><div class="community"><article class="post"><b>Thando</b><small class="muted"> • Today • Community</small><p>“One small productive activity today is still progress. Keep going.”</p><button class="btn outline" data-toast="Encouragement added.">💚 Encourage</button></article><article class="post"><b>Sober Buddy</b><small class="muted"> • Today • Support</small><p>Remember that support is available. Reach out to your mentor when you need connection.</p><a class="btn primary" href="mentor.html">💬 Talk to mentor</a></article></div>
-<section class="dashcard" style="margin-top:18px"><h3>Share with the community</h3><textarea id="postText" rows="3" placeholder="Share an encouraging message..."></textarea><button id="sharePost" class="btn primary" style="margin-top:12px">Share Post</button></section>
-<section class="dashcard" style="margin-top:18px"><h3>Recent member posts</h3><div id="posts">Loading...</div></section>
-<section class="dashcard" style="margin-top:18px"><h3>Community activities</h3><p class="muted">🎮 <b>Gaming</b> — Positive recreation and connection</p><p class="muted">🤝 <b>Peer support</b> — Daily support groups</p><p class="muted">🎓 <b>Skills learning</b> — Build practical and employable skills</p></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Sober Hub | Community</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/style.css"
+  >
+
+</head>
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="app-header">
+
+    <a
+      class="brand"
+      href="index.html"
+      style="display:flex;align-items:center;gap:8px;"
+    >
+
+      <img
+        src="Logo.jpeg"
+        alt="Sober Hub Logo"
+        style="height:32px;width:32px;border-radius:6px;object-fit:cover;"
+      >
+
+      Sober Hub
+
+    </a>
+
+
+    <div
+      style="display:flex;gap:10px;align-items:center"
+    >
+
+      <a
+        class="back"
+        href="dashboard.html"
+      >
+        ← Dashboard
+      </a>
+
+      <button
+        class="btn outline"
+        id="logoutBtn"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="page">
+
+    <span class="eyebrow">
+      COMMUNITY
+    </span>
+
+
+    <h1>
+      You are part of a community.
+    </h1>
+
+
+    <p class="page-intro">
+      A positive space for connection, encouragement and productive engagement.
+    </p>
+
+
+
+    <!-- COMMUNITY POSTS -->
+
+    <div class="community">
+
+
+      <article class="post">
+
+        <b>
+          Thando
+        </b>
+
+        <small class="muted">
+          • Today • Community
+        </small>
+
+        <p>
+          “One small productive activity today is still progress. Keep going.”
+        </p>
+
+        <button
+          class="btn outline"
+          data-toast="Encouragement added."
+        >
+          💚 Encourage
+        </button>
+
+      </article>
+
+
+
+      <article class="post">
+
+        <b>
+          Sober Buddy
+        </b>
+
+        <small class="muted">
+          • Today • Support
+        </small>
+
+        <p>
+          Remember that support is available. Reach out to your mentor when you need connection.
+        </p>
+
+        <a
+          class="btn primary"
+          href="mentor.html"
+        >
+          💬 Talk to mentor
+        </a>
+
+      </article>
+
+
+    </div>
+
+
+
+    <!-- SHARE POST -->
+
+    <section
+      class="dashcard"
+      style="margin-top:18px"
+    >
+
+      <h3>
+        Share with the community
+      </h3>
+
+      <textarea
+        id="postText"
+        rows="3"
+        placeholder="Share an encouraging message..."
+      ></textarea>
+
+
+      <button
+        id="sharePost"
+        class="btn primary"
+        style="margin-top:12px"
+        type="button"
+      >
+        Share Post
+      </button>
+
+
+      <p
+        id="postMessage"
+        class="form-msg"
+        style="margin-top:10px;"
+      ></p>
+
+    </section>
+
+
+
+    <!-- RECENT POSTS -->
+
+    <section
+      class="dashcard"
+      style="margin-top:18px"
+    >
+
+      <h3>
+        Recent member posts
+      </h3>
+
+      <div id="posts">
+        Loading...
+      </div>
+
+    </section>
+
+
+
+    <!-- COMMUNITY ACTIVITIES -->
+
+    <section
+      class="dashcard"
+      style="margin-top:18px"
+    >
+
+      <h3>
+        Community activities
+      </h3>
+
+      <p class="muted">
+        🎮 <b>Gaming</b> — Positive recreation and connection
+      </p>
+
+      <p class="muted">
+        🤝 <b>Peer support</b> — Daily support groups
+      </p>
+
+      <p class="muted">
+        🎓 <b>Skills learning</b> — Build practical and employable skills
+      </p>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!--
+    app.js is intentionally NOT loaded here.
+    This prevents the old script from redirecting
+    the page back to login.
+  -->
+
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+
+        /*
+         * CHECK LOGIN
+         */
+
+        const loggedInUser =
+          localStorage.getItem("loggedInUser");
+
+
+        if (!loggedInUser) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+
+        const postText =
+          document.getElementById("postText");
+
+        const sharePost =
+          document.getElementById("sharePost");
+
+        const posts =
+          document.getElementById("posts");
+
+        const postMessage =
+          document.getElementById("postMessage");
+
+        const logoutButton =
+          document.getElementById("logoutBtn");
+
+
+
+        /*
+         * LOAD SAVED COMMUNITY POSTS
+         */
+
+        function loadPosts() {
+
+          const savedPosts =
+            JSON.parse(
+              localStorage.getItem("communityPosts") || "[]"
+            );
+
+
+          if (savedPosts.length === 0) {
+
+            posts.innerHTML =
+              '<p class="muted">No member posts yet. Be the first to share something encouraging.</p>';
+
+            return;
+
+          }
+
+
+          posts.innerHTML = "";
+
+
+          savedPosts.forEach(function (post) {
+
+            const postElement =
+              document.createElement("article");
+
+
+            postElement.className =
+              "post";
+
+
+            postElement.style.marginBottom =
+              "12px";
+
+
+            postElement.innerHTML = `
+
+              <b>${post.name}</b>
+
+              <small class="muted">
+                • ${post.date} • Member
+              </small>
+
+              <p>
+                ${post.text}
+              </p>
+
+            `;
+
+
+            posts.appendChild(postElement);
+
+          });
+
+        }
+
+
+
+        /*
+         * SHARE A POST
+         */
+
+        sharePost.addEventListener(
+          "click",
+          function () {
+
+
+            const text =
+              postText.value.trim();
+
+
+            if (!text) {
+
+              postMessage.style.color =
+                "red";
+
+              postMessage.textContent =
+                "Please write a message before sharing.";
+
+              return;
+
+            }
+
+
+            /*
+             * Get existing posts.
+             */
+
+            const savedPosts =
+              JSON.parse(
+                localStorage.getItem("communityPosts") || "[]"
+              );
+
+
+            /*
+             * Create the new post.
+             */
+
+            const newPost = {
+
+              name: loggedInUser,
+
+              text: text,
+
+              date:
+                new Date().toLocaleDateString("en-ZA")
+
+            };
+
+
+            /*
+             * Add the newest post first.
+             */
+
+            savedPosts.unshift(newPost);
+
+
+            /*
+             * Save posts.
+             */
+
+            localStorage.setItem(
+              "communityPosts",
+              JSON.stringify(savedPosts)
+            );
+
+
+            /*
+             * Clear the text box.
+             */
+
+            postText.value = "";
+
+
+            /*
+             * Show success message.
+             */
+
+            postMessage.style.color =
+              "#2E7D32";
+
+            postMessage.textContent =
+              "✓ Your post has been shared with the community.";
+
+
+            /*
+             * Refresh posts.
+             */
+
+            loadPosts();
+
+          }
+        );
+
+
+
+        /*
+         * ENCOURAGE BUTTONS
+         */
+
+        const encourageButtons =
+          document.querySelectorAll(
+            "[data-toast]"
+          );
+
+
+        encourageButtons.forEach(
+          function (button) {
+
+            button.addEventListener(
+              "click",
+              function () {
+
+                alert(
+                  button.getAttribute("data-toast")
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+
+        /*
+         * LOG OUT
+         */
+
+        logoutButton.addEventListener(
+          "click",
+          function () {
+
+            localStorage.removeItem(
+              "loggedInUser"
+            );
+
+            window.location.href =
+              "login.html";
+
+          }
+        );
+
+
+
+        /*
+         * LOAD POSTS WHEN PAGE OPENS
+         */
+
+        loadPosts();
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

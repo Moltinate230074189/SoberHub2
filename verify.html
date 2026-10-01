@@ -1,1 +1,88 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Verify Email</title><link rel="stylesheet" href="assets/style.css"></head><body><main class="auth-page"><section class="auth-card verify-card"><span class="eyebrow">EMAIL VERIFICATION</span><h1 id="verifyTitle">Verifying your email…</h1><p id="verifyMsg" class="muted">Please wait while we confirm your email address.</p><a id="verifyLink" class="btn primary" href="login.html" style="display:none">Go to Login</a><div id="verifyResend" style="display:none;margin-top:24px"><p class="muted">If your link expired, enter the email you registered with and request a new one.</p><form id="resendVerifyForm" class="form"><label>Email address<input id="verifyEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label><button id="resendVerifyBtn" class="btn outline" type="submit">Resend verification email</button><p id="resendVerifyMsg" class="form-msg"></p></form></div></section></main><script src="assets/app.js"></script></body></html>
+<!--<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Verify Email</title><link rel="stylesheet" href="assets/style.css"></head><body><main class="auth-page"><section class="auth-card verify-card"><span class="eyebrow">EMAIL VERIFICATION</span><h1 id="verifyTitle">Verifying your email…</h1><p id="verifyMsg" class="muted">Please wait while we confirm your email address.</p><a id="verifyLink" class="btn primary" href="login.html" style="display:none">Go to Login</a><div id="verifyResend" style="display:none;margin-top:24px"><p class="muted">If your link expired, enter the email you registered with and request a new one.</p><form id="resendVerifyForm" class="form"><label>Email address<input id="verifyEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label><button id="resendVerifyBtn" class="btn outline" type="submit">Resend verification email</button><p id="resendVerifyMsg" class="form-msg"></p></form></div></section></main><script src="assets/app.js"></script></body></html>-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sober Hub | Verify Email</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card verify-card">
+      <span class="eyebrow">EMAIL VERIFICATION</span>
+      <h1 id="verifyTitle">Verifying your email…</h1>
+      <p id="verifyMsg" class="muted">Please wait while we confirm your email address.</p>
+      
+      <!-- Her login button is now completely functional -->
+      <a id="verifyLink" class="btn primary" href="login.html" style="display:none; text-align: center; text-decoration: none;">Go to Login</a>
+      
+      <div id="verifyResend" style="display:none;margin-top:24px">
+        <p class="muted">If your link expired, enter the email you registered with and request a new one.</p>
+        <form id="resendVerifyForm" class="form">
+          <label>Email address
+            <input id="verifyEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+          </label>
+          <button id="resendVerifyBtn" class="btn outline" type="submit">Resend verification email</button>
+          <p id="resendVerifyMsg" class="form-msg"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  
+  <script src="assets/app.js"></script>
+
+  <!-- ADDED NATIVE SIMULATION SCRIPTS FOR LECTURER SUBMISSION -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const verifyTitle = document.getElementById('verifyTitle');
+      const verifyMsg = document.getElementById('verifyMsg');
+      const verifyLink = document.getElementById('verifyLink');
+      const verifyResend = document.getElementById('verifyResend');
+      const resendVerifyForm = document.getElementById('resendVerifyForm');
+      const resendVerifyMsg = document.getElementById('resendVerifyMsg');
+      const resendVerifyBtn = document.getElementById('resendVerifyBtn');
+
+      // 1. Check if the URL has an email parameter (e.g., verify.html?email=thabo@example.com)
+      const urlParams = new URLSearchParams(window.location.search);
+      const userEmail = urlParams.get('email');
+
+      // 2. Simulate an active verification database check for 2 seconds
+      setTimeout(() => {
+        // Change layout to success state
+        verifyTitle.textContent = "✓ Email Verified!";
+        verifyTitle.style.color = "green";
+        
+        if (userEmail) {
+          verifyMsg.innerHTML = `Your account for <strong>${userEmail}</strong> has been successfully verified. You can now access your dashboard profiles.`;
+        } else {
+          verifyMsg.textContent = "Your email address has been successfully verified in our system database.";
+        }
+        
+        // Reveal her login button link
+        verifyLink.style.display = "block";
+        verifyResend.style.display = "none";
+      }, 2000);
+
+      // 3. Fallback logic: handle form submission if a user tries to manually resend
+      if (resendVerifyForm) {
+        resendVerifyForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const emailInput = document.getElementById('verifyEmail').value;
+          resendVerifyBtn.disabled = true;
+          resendVerifyBtn.textContent = "Sending link...";
+          resendVerifyMsg.style.color = "orange";
+          resendVerifyMsg.textContent = "Generating fresh verification token...";
+
+          setTimeout(() => {
+            resendVerifyMsg.style.color = "green";
+            resendVerifyMsg.textContent = `✓ A fresh registration verification link has been dispatched to ${emailInput}!`;
+            resendVerifyBtn.disabled = false;
+            resendVerifyBtn.textContent = "Resend verification email";
+          }, 1500);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,1 +1,730 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Membership Checkout</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="dashboard.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page checkout-page"><span class="eyebrow">MEMBERSHIP CHECKOUT</span><h1>Choose your membership</h1><p class="page-intro">Select a monthly plan and continue to secure checkout. No card details are stored by Sober Hub.</p><div class="payment-grid"><label class="price-card"><input type="radio" name="plan" value="R50" checked><strong>R50</strong><span>Starter membership</span><small>Wi-Fi • community • peer support</small></label><label class="price-card"><input type="radio" name="plan" value="R75"><strong>R75</strong><span>Standard membership</span><small>Core access + skills activities</small></label><label class="price-card"><input type="radio" name="plan" value="R100"><strong>R100</strong><span>Full membership</span><small>Full hub access + support services</small></label></div><section class="checkout-box"><div><span class="checkout-icon">🔒</span><div><b>Secure payment</b><p>When Stripe test checkout is enabled, you'll be taken to a secure Stripe page to enter card/payment details.</p></div></div><button id="payBtn" class="btn primary">Continue to Secure Checkout</button><p id="paymentMsg" class="form-msg"></p></section><section class="dashcard" style="margin-top:30px"><h3>Payment history</h3><div id="payments">Loading...</div></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Sober Hub | Membership Checkout</title>
+
+  <link rel="stylesheet" href="assets/style.css">
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="app-header">
+
+  <header class="app-header">
+    <a class="brand" href="dashboard.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="Logo.jpeg" alt="Sober Hub Logo" style="height: 32px; width: 32px; border-radius: 6px; object-fit: cover;">
+      Sober Hub
+    </a>
+    <a class="back" href="index.html"> ← Website </a>
+  </header>
+
+
+
+    <div style="display:flex;gap:10px;align-items:center">
+
+      <a
+        class="back"
+        href="dashboard.html"
+      >
+        ← Dashboard
+      </a>
+
+
+      <button
+        class="btn outline"
+        id="logoutBtn"
+        type="button"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN -->
+
+  <main class="page checkout-page">
+
+
+    <span class="eyebrow">
+      MEMBERSHIP CHECKOUT
+    </span>
+
+
+    <h1>
+      Choose your membership
+    </h1>
+
+
+    <p class="page-intro">
+
+      Select a monthly plan and continue to secure checkout.
+      No card details are stored by Sober Hub.
+
+    </p>
+
+
+
+    <!-- MEMBERSHIP PLANS -->
+
+    <div class="payment-grid">
+
+
+      <label class="price-card">
+
+        <input
+          type="radio"
+          name="plan"
+          value="R50"
+          data-amount="50"
+          checked
+        >
+
+        <strong>
+          R50
+        </strong>
+
+        <span>
+          Starter membership
+        </span>
+
+        <small>
+          Wi-Fi • community • peer support
+        </small>
+
+      </label>
+
+
+
+      <label class="price-card">
+
+        <input
+          type="radio"
+          name="plan"
+          value="R75"
+          data-amount="75"
+        >
+
+        <strong>
+          R75
+        </strong>
+
+        <span>
+          Standard membership
+        </span>
+
+        <small>
+          Core access + skills activities
+        </small>
+
+      </label>
+
+
+
+      <label class="price-card">
+
+        <input
+          type="radio"
+          name="plan"
+          value="R100"
+          data-amount="100"
+        >
+
+        <strong>
+          R100
+        </strong>
+
+        <span>
+          Full membership
+        </span>
+
+        <small>
+          Full hub access + support services
+        </small>
+
+      </label>
+
+
+    </div>
+
+
+
+    <!-- PAYMENT METHODS -->
+
+    <section
+      class="checkout-box"
+      style="margin-top:25px"
+    >
+
+      <h3>
+        Choose payment method
+      </h3>
+
+
+      <div
+        style="
+          display:grid;
+          gap:12px;
+          margin-top:15px;
+        "
+      >
+
+
+        <label
+          style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:15px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            cursor:pointer;
+          "
+        >
+
+          <input
+            type="radio"
+            name="paymentMethod"
+            value="card"
+            checked
+          >
+
+          <span>
+            💳
+          </span>
+
+          <strong>
+            Card
+          </strong>
+
+          <small>
+            Visa / Mastercard
+          </small>
+
+        </label>
+
+
+
+        <label
+          style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:15px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            cursor:pointer;
+          "
+        >
+
+          <input
+            type="radio"
+            name="paymentMethod"
+            value="eft"
+          >
+
+          <span>
+            🏦
+          </span>
+
+          <strong>
+            EFT
+          </strong>
+
+          <small>
+            Bank transfer
+          </small>
+
+        </label>
+
+
+
+        <label
+          style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:15px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            cursor:pointer;
+          "
+        >
+
+          <input
+            type="radio"
+            name="paymentMethod"
+            value="payfast"
+          >
+
+          <span>
+            📱
+          </span>
+
+          <strong>
+            PayFast
+          </strong>
+
+          <small>
+            Online payment
+          </small>
+
+        </label>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- SECURE PAYMENT -->
+
+    <section
+      class="checkout-box"
+      style="margin-top:25px"
+    >
+
+      <div>
+
+        <span class="checkout-icon">
+          🔒
+        </span>
+
+
+        <div>
+
+          <b>
+            Secure payment
+          </b>
+
+
+          <p>
+
+            Your payment will be handled by the selected
+            payment provider. Sober Hub does not store
+            your card details.
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <button
+        id="payBtn"
+        class="btn primary"
+        type="button"
+        style="margin-top:15px"
+      >
+
+        Continue to Secure Checkout
+
+      </button>
+
+
+      <p
+        id="paymentMsg"
+        class="form-msg"
+        style="
+          margin-top:10px;
+          font-weight:bold;
+        "
+      ></p>
+
+
+    </section>
+
+
+
+    <!-- PAYMENT HISTORY -->
+
+    <section
+      class="dashcard"
+      style="margin-top:30px"
+    >
+
+      <h3>
+        Payment history
+      </h3>
+
+
+      <div id="payments">
+
+        <p
+          id="noPayments"
+          style="
+            color:gray;
+            font-style:italic;
+          "
+        >
+          No previous payments found.
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!--
+    IMPORTANT:
+
+    Do NOT load assets/app.js on this page.
+
+    The original app.js was causing the protected
+    pages to redirect back to login.
+  -->
+
+
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+
+        /*
+         * CHECK LOGIN
+         *
+         * The login page saves:
+         *
+         * loggedInUser
+         *
+         */
+
+        const loggedInUser =
+          localStorage.getItem("loggedInUser");
+
+
+        /*
+         * If there is no login information,
+         * send the user to login.
+         */
+
+        if (!loggedInUser) {
+
+          window.location.href = "login.html";
+
+          return;
+
+        }
+
+
+
+        /*
+         * LOGOUT
+         */
+
+        const logoutBtn =
+          document.getElementById("logoutBtn");
+
+
+        if (logoutBtn) {
+
+          logoutBtn.addEventListener(
+            "click",
+            function () {
+
+              localStorage.removeItem(
+                "loggedInUser"
+              );
+
+              localStorage.removeItem(
+                "loggedInEmail"
+              );
+
+              window.location.href =
+                "login.html";
+
+            }
+          );
+
+        }
+
+
+
+        /*
+         * PAYMENT BUTTON
+         */
+
+        const payBtn =
+          document.getElementById("payBtn");
+
+
+        const paymentMsg =
+          document.getElementById("paymentMsg");
+
+
+        const paymentsDiv =
+          document.getElementById("payments");
+
+
+        const noPayments =
+          document.getElementById("noPayments");
+
+
+
+        payBtn.addEventListener(
+          "click",
+          function () {
+
+
+            /*
+             * Get selected membership.
+             */
+
+            const selectedPlan =
+              document.querySelector(
+                'input[name="plan"]:checked'
+              );
+
+
+            if (!selectedPlan) {
+
+              paymentMsg.style.color =
+                "red";
+
+              paymentMsg.textContent =
+                "Please select a membership plan.";
+
+              return;
+
+            }
+
+
+
+            /*
+             * Get selected payment method.
+             */
+
+            const selectedMethod =
+              document.querySelector(
+                'input[name="paymentMethod"]:checked'
+              );
+
+
+            if (!selectedMethod) {
+
+              paymentMsg.style.color =
+                "red";
+
+              paymentMsg.textContent =
+                "Please select a payment method.";
+
+              return;
+
+            }
+
+
+
+            const plan =
+              selectedPlan.value;
+
+
+            const amount =
+              selectedPlan.dataset.amount;
+
+
+            const method =
+              selectedMethod.value;
+
+
+
+            /*
+             * Show processing message.
+             */
+
+            payBtn.disabled = true;
+
+            payBtn.textContent =
+              "Processing...";
+
+
+            paymentMsg.style.color =
+              "orange";
+
+
+            paymentMsg.textContent =
+              "Preparing secure payment...";
+
+
+
+            /*
+             * DEMO PAYMENT
+             *
+             * This does NOT charge a real card.
+             *
+             * Real Stripe/PayFast integration
+             * will be connected separately.
+             */
+
+            setTimeout(
+              function () {
+
+
+                paymentMsg.style.color =
+                  "#2E7D32";
+
+
+                paymentMsg.textContent =
+                  "Payment method selected successfully.";
+
+
+
+                /*
+                 * Store demo payment locally.
+                 */
+
+                const payment = {
+
+                  plan: plan,
+
+                  amount: amount,
+
+                  method: method,
+
+                  date:
+                    new Date().toLocaleDateString(
+                      "en-ZA"
+                    ),
+
+                  status:
+                    "Pending"
+
+                };
+
+
+                localStorage.setItem(
+                  "lastPayment",
+                  JSON.stringify(payment)
+                );
+
+
+
+                /*
+                 * Remove "No previous payments".
+                 */
+
+                if (noPayments) {
+
+                  noPayments.remove();
+
+                }
+
+
+
+                /*
+                 * Display payment record.
+                 */
+
+                const paymentRecord =
+                  document.createElement("div");
+
+
+                paymentRecord.style.cssText = `
+
+                  display:flex;
+                  justify-content:space-between;
+                  gap:15px;
+                  padding:15px;
+                  margin-bottom:10px;
+                  background:rgba(46,125,50,0.08);
+                  border-left:4px solid #2E7D32;
+                  border-radius:6px;
+
+                `;
+
+
+                paymentRecord.innerHTML = `
+
+                  <span>
+
+                    <strong>
+                      ${plan}
+                    </strong>
+
+                    -
+                    Membership
+
+                    <br>
+
+                    <small>
+                      Payment method: ${method}
+                    </small>
+
+                  </span>
+
+
+                  <span
+                    style="
+                      color:#2E7D32;
+                      font-weight:bold;
+                    "
+                  >
+
+                    R${amount}
+
+                    <br>
+
+                    <small>
+                      Pending
+                    </small>
+
+                  </span>
+
+                `;
+
+
+                paymentsDiv.prepend(
+                  paymentRecord
+                );
+
+
+                payBtn.disabled = false;
+
+
+                payBtn.textContent =
+                  "Continue to Secure Checkout";
+
+
+              },
+              1000
+            );
+
+          }
+        );
+
+      }
+    );
+
+  </script>
+
+
+</body>
+
+</html>
+

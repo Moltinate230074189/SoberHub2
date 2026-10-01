@@ -1,1 +1,127 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Emergency Support</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow" style="color:#D32F2F">URGENT SUPPORT</span><h1>Emergency / Panic Support</h1><div class="panic"><div style="font-size:42px">🆘</div><h2>Need immediate support?</h2><p>The Sober-Buddy concept includes a panic button for situations involving cravings or danger. The proposed workflow sends the request to the mentor and escalates to the Sober-Hub support desk if needed.</p><button id="panic">PRESS FOR SUPPORT</button><p style="font-size:10px">This GitHub Pages prototype does not send a real emergency alert or location. It demonstrates the intended workflow only.</p></div><section class="dashcard" style="margin-top:18px;text-align:center"><b>You</b> → <b>Mentor / Sober Buddy</b> → <b>Sober-Hub Support Desk</b></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sober Hub | Emergency Support</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <a class="brand" href="index.html" style="display:flex;align-items:center;gap:8px;">
+      <img src="Logo.jpeg" alt="Sober Hub Logo" style="height:32px;width:32px;border-radius:6px;object-fit:cover;">
+      Sober Hub
+    </a>
+
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="back" href="dashboard.html">← Dashboard</a>
+      <button class="btn outline" id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+    <span class="eyebrow" style="color:#D32F2F">URGENT SUPPORT</span>
+    <h1>Emergency / Panic Support</h1>
+
+    <!-- PANIC SUPPORT -->
+    <div class="panic">
+      <div style="font-size:42px">🆘</div>
+      <h2>Need immediate support?</h2>
+      <p>
+        The Sober-Buddy concept includes a panic button for situations involving cravings or danger. The proposed workflow sends the request to the mentor and escalates to the Sober-Hub support desk if needed.
+      </p>
+      <button id="panic">PRESS FOR SUPPORT</button>
+      <p style="font-size:10px">
+        This GitHub Pages prototype does not send a real emergency alert or location. It demonstrates the intended workflow only.
+      </p>
+    </div>
+
+    <!-- WORKFLOW -->
+    <section class="dashcard" style="margin-top:18px;text-align:center">
+      <b>You</b> → <b>Mentor / Sober Buddy</b> → <b>Sober-Hub Support Desk</b>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      /* =========================================
+         CHECK LOGIN
+      ========================================= */
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      if (!loggedInUser) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      /* =========================================
+         PANIC BUTTON
+      ========================================= */
+      const panicButton = document.getElementById("panic");
+
+      panicButton.addEventListener("click", function () {
+        const confirmed = confirm("Are you sure you need emergency support?");
+        if (!confirmed) {
+          return;
+        }
+
+        /*
+         * Get existing emergency requests.
+         */
+        const requests = JSON.parse(localStorage.getItem("emergencyRequests") || "[]");
+
+        /*
+         * FIXED: Read the clean name string captured during registration.
+         * Falls back safely to a clean string format if not explicitly found.
+         */
+        const actualRegisteredName = localStorage.getItem('registeredNameString') || "Registered Member";
+
+        /*
+         * Create the new emergency request.
+         */
+        const emergencyRequest = {
+          user: actualRegisteredName,
+          message: "Emergency / panic support requested.",
+          status: "Pending",
+          date: new Date().toLocaleString("en-ZA")
+        };
+
+        requests.push(emergencyRequest);
+
+        /*
+         * Save request.
+         */
+        localStorage.setItem("emergencyRequests", JSON.stringify(requests));
+
+        /*
+         * Update button interface state visuals.
+         */
+        panicButton.textContent = "SUPPORT REQUEST SENT";
+        panicButton.disabled = true;
+        panicButton.style.opacity = "0.7";
+
+        alert("Your support request has been recorded. A mentor / Sober Buddy would be notified in the full system.");
+      });
+
+      /* =========================================
+         LOG OUT
+      ========================================= */
+      const logoutButton = document.getElementById("logoutBtn");
+
+      logoutButton.addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+        localStorage.removeItem("registeredNameString");
+        window.location.href = "login.html";
+      });
+
+    });
+  </script>
+
+</body>
+</html>
+

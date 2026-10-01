@@ -1,1 +1,415 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Daily Check-in</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow">MEMBER ACTIVITY</span><h1>Daily Check-in</h1><p class="page-intro">Take a moment to reflect and track your activity.</p><section class="form"><h3>How are you feeling today?</h3><div class="moods"><label class="mood"><input type="radio" name="mood" value="Great"><span>😊</span>Great</label><label class="mood"><input type="radio" name="mood" value="Good"><span>🙂</span>Good</label><label class="mood"><input type="radio" name="mood" value="Okay"><span>😐</span>Okay</label><label class="mood"><input type="radio" name="mood" value="Struggling"><span>😔</span>Struggling</label></div><label>What would help you today?<textarea id="note" rows="4" placeholder="Write a short reflection..."></textarea></label><button class="btn primary" id="saveCheckin">Save Check-in</button></section><section class="dashcard" style="margin-top:18px"><h3>Recent check-in</h3><div id="recent" class="muted">No check-in saved in this browser yet.</div></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sober Hub | Daily Check-in</title>
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <a class="brand" href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="Logo.jpeg" alt="Sober Hub Logo" style="height: 32px; width: 32px; border-radius: 6px; object-fit: cover;">
+      Sober Hub
+    </a>
+    <a class="back" href="index.html"> ← Website </a>
+  </header>
+
+    <div style="display:flex;gap:10px;align-items:center">
+
+      <a class="back" href="dashboard.html">
+        ← Dashboard
+      </a>
+
+      <button class="btn outline" id="logoutBtn">
+        Log out
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <span class="eyebrow">
+      MEMBER ACTIVITY
+    </span>
+
+    <h1>
+      Daily Check-in
+    </h1>
+
+    <p class="page-intro">
+      Take a moment to reflect and track your activity.
+    </p>
+
+
+    <!-- CHECK-IN FORM -->
+    <section class="form">
+
+      <h3>
+        How are you feeling today?
+      </h3>
+
+
+      <div class="moods">
+
+        <label class="mood">
+
+          <input
+            type="radio"
+            name="mood"
+            value="Great"
+          >
+
+          <span>😊</span>
+
+          Great
+
+        </label>
+
+
+        <label class="mood">
+
+          <input
+            type="radio"
+            name="mood"
+            value="Good"
+          >
+
+          <span>🙂</span>
+
+          Good
+
+        </label>
+
+
+        <label class="mood">
+
+          <input
+            type="radio"
+            name="mood"
+            value="Okay"
+          >
+
+          <span>😐</span>
+
+          Okay
+
+        </label>
+
+
+        <label class="mood">
+
+          <input
+            type="radio"
+            name="mood"
+            value="Struggling"
+          >
+
+          <span>😔</span>
+
+          Struggling
+
+        </label>
+
+      </div>
+
+
+      <label>
+
+        What would help you today?
+
+        <textarea
+          id="note"
+          rows="4"
+          placeholder="Write a short reflection..."
+        ></textarea>
+
+      </label>
+
+
+      <button
+        class="btn primary"
+        id="saveCheckin"
+        type="button"
+      >
+        Save Check-in
+      </button>
+
+
+      <p
+        id="checkinMessage"
+        class="form-msg"
+        style="margin-top:10px;"
+      ></p>
+
+    </section>
+
+
+    <!-- RECENT CHECK-IN -->
+    <section
+      class="dashcard"
+      style="margin-top:18px"
+    >
+
+      <h3>
+        Recent check-in
+      </h3>
+
+      <div
+        id="recent"
+        class="muted"
+      >
+        No check-in saved in this browser yet.
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!--
+    We intentionally do NOT load assets/app.js here.
+    The old app.js was causing the page to redirect
+    back to the login page.
+  -->
+
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      /*
+       * CHECK LOGIN
+       *
+       * The dashboard/login system uses
+       * "loggedInUser" to identify the logged-in user.
+       */
+
+      const loggedInUser =
+        localStorage.getItem("loggedInUser");
+
+
+      /*
+       * If there is no logged-in user,
+       * send the person back to login.
+       */
+
+      if (!loggedInUser) {
+
+        window.location.href = "login.html";
+
+        return;
+
+      }
+
+
+      const saveButton =
+        document.getElementById("saveCheckin");
+
+      const noteInput =
+        document.getElementById("note");
+
+      const recent =
+        document.getElementById("recent");
+
+      const message =
+        document.getElementById("checkinMessage");
+
+      const logoutButton =
+        document.getElementById("logoutBtn");
+
+
+      /*
+       * DISPLAY SAVED CHECK-IN
+       */
+
+      function displayRecentCheckin() {
+
+        const savedCheckin =
+          localStorage.getItem("dailyCheckin");
+
+
+        if (!savedCheckin) {
+
+          recent.textContent =
+            "No check-in saved in this browser yet.";
+
+          return;
+
+        }
+
+
+        try {
+
+          const checkin =
+            JSON.parse(savedCheckin);
+
+
+          recent.innerHTML = `
+
+            <div style="padding:12px 0;">
+
+              <strong>
+                Mood: ${checkin.mood}
+              </strong>
+
+              <br>
+
+              <span>
+                ${checkin.note || "No reflection added."}
+              </span>
+
+              <br>
+
+              <small>
+                ${checkin.date}
+              </small>
+
+            </div>
+
+          `;
+
+        } catch (error) {
+
+          recent.textContent =
+            "No check-in saved in this browser yet.";
+
+        }
+
+      }
+
+
+      /*
+       * SAVE CHECK-IN
+       */
+
+      saveButton.addEventListener("click", function () {
+
+        const selectedMood =
+          document.querySelector(
+            'input[name="mood"]:checked'
+          );
+
+
+        /*
+         * Make sure a mood was selected.
+         */
+
+        if (!selectedMood) {
+
+          message.style.color = "red";
+
+          message.textContent =
+            "Please select how you are feeling today.";
+
+          return;
+
+        }
+
+
+        const mood =
+          selectedMood.value;
+
+        const note =
+          noteInput.value.trim();
+
+
+        /*
+         * Get today's date and time.
+         */
+
+        const now =
+          new Date();
+
+        const date =
+          now.toLocaleString("en-ZA");
+
+
+        /*
+         * Create the check-in.
+         */
+
+        const checkin = {
+
+          user: loggedInUser,
+
+          mood: mood,
+
+          note: note,
+
+          date: date
+
+        };
+
+
+        /*
+         * Save it in the browser.
+         */
+
+        localStorage.setItem(
+          "dailyCheckin",
+          JSON.stringify(checkin)
+        );
+
+
+        /*
+         * Show success message.
+         */
+
+        message.style.color = "#2E7D32";
+
+        message.textContent =
+          "✓ Your check-in has been saved successfully.";
+
+
+        /*
+         * Show the newly saved check-in.
+         */
+
+        displayRecentCheckin();
+
+
+        /*
+         * Clear the reflection box.
+         */
+
+        noteInput.value = "";
+
+      });
+
+
+      /*
+       * LOG OUT
+       */
+
+      logoutButton.addEventListener("click", function () {
+
+        localStorage.removeItem("loggedInUser");
+
+        window.location.href = "login.html";
+
+      });
+
+
+      /*
+       * Load previous check-in when page opens.
+       */
+
+      displayRecentCheckin();
+
+    });
+
+  </script>
+
+</body>
+
+</html>

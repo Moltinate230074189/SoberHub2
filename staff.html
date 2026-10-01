@@ -1,1 +1,498 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Staff</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="dashboard.html"><span class="logo">SH</span>Sober Hub</a><div><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow">STAFF PORTAL</span><h1>Operations dashboard</h1><p class="page-intro">Authorised staff can view members and manage incoming mentor and emergency support requests.</p><div class="grid three"><div class="stat-card"><b id="memberCount">—</b><span>Registered accounts</span></div><div class="stat-card"><b id="mentorCount">—</b><span>Mentor requests</span></div><div class="stat-card"><b id="emergencyCount">—</b><span>Emergency requests</span></div></div><section class="dashcard" style="margin-top:25px"><h3>Members</h3><div id="members" class="table-wrap">Loading...</div></section><section class="dashcard" style="margin-top:25px"><h3>Support requests</h3><div id="requests">Loading...</div></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Sober Hub | Staff</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/style.css"
+  >
+
+</head>
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="app-header">
+
+    <a
+      class="brand"
+      href="dashboard.html"
+      style="display:flex;align-items:center;gap:8px;"
+    >
+
+      <img
+        src="Logo.jpeg"
+        alt="Sober Hub Logo"
+        style="height:32px;width:32px;border-radius:6px;object-fit:cover;"
+      >
+
+      Sober Hub
+
+    </a>
+
+
+    <div>
+
+      <button
+        class="btn outline"
+        id="logoutBtn"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="page">
+
+    <span class="eyebrow">
+      STAFF PORTAL
+    </span>
+
+
+    <h1>
+      Operations dashboard
+    </h1>
+
+
+    <p class="page-intro">
+      Authorised staff can view members and manage incoming mentor and emergency support requests.
+    </p>
+
+
+
+    <!-- STATISTICS -->
+
+    <div class="grid three">
+
+
+      <div class="stat-card">
+
+        <b id="memberCount">
+          0
+        </b>
+
+        <span>
+          Registered accounts
+        </span>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <b id="mentorCount">
+          0
+        </b>
+
+        <span>
+          Mentor requests
+        </span>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <b id="emergencyCount">
+          0
+        </b>
+
+        <span>
+          Emergency requests
+        </span>
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- MEMBERS -->
+
+    <section
+      class="dashcard"
+      style="margin-top:25px"
+    >
+
+      <h3>
+        Members
+      </h3>
+
+      <div
+        id="members"
+        class="table-wrap"
+      >
+        Loading...
+      </div>
+
+    </section>
+
+
+
+    <!-- SUPPORT REQUESTS -->
+
+    <section
+      class="dashcard"
+      style="margin-top:25px"
+    >
+
+      <h3>
+        Support requests
+      </h3>
+
+      <div id="requests">
+        Loading...
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!--
+    app.js is intentionally NOT loaded here.
+    This prevents the old script from redirecting
+    the page unexpectedly.
+  -->
+
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+
+        /*
+         * LOGOUT
+         */
+
+        const logoutButton =
+          document.getElementById("logoutBtn");
+
+
+        logoutButton.addEventListener(
+          "click",
+          function () {
+
+            localStorage.removeItem(
+              "loggedInUser"
+            );
+
+            window.location.href =
+              "login.html";
+
+          }
+        );
+
+
+
+        /*
+         * GET SAVED MEMBERS
+         *
+         * The registration system can store
+         * accounts in "registeredUsers".
+         */
+
+        let users = [];
+
+        try {
+
+          users =
+            JSON.parse(
+              localStorage.getItem("registeredUsers") || "[]"
+            );
+
+        } catch (error) {
+
+          users = [];
+
+        }
+
+
+
+        /*
+         * MEMBER COUNT
+         */
+
+        document.getElementById(
+          "memberCount"
+        ).textContent =
+          users.length;
+
+
+
+        /*
+         * DISPLAY MEMBERS
+         */
+
+        const members =
+          document.getElementById("members");
+
+
+        if (users.length === 0) {
+
+          members.innerHTML = `
+            <p class="muted">
+              No registered accounts found yet.
+            </p>
+          `;
+
+        } else {
+
+          members.innerHTML = "";
+
+
+          users.forEach(
+            function (user) {
+
+              const member =
+                document.createElement("div");
+
+
+              member.style.padding =
+                "12px";
+
+              member.style.marginBottom =
+                "8px";
+
+              member.style.borderBottom =
+                "1px solid #eee";
+
+
+              const firstName =
+                user.firstName || "";
+
+              const lastName =
+                user.lastName || "";
+
+              const email =
+                user.email || "No email available";
+
+
+              member.innerHTML = `
+
+                <strong>
+                  ${firstName} ${lastName}
+                </strong>
+
+                <br>
+
+                <span class="muted">
+                  ${email}
+                </span>
+
+              `;
+
+
+              members.appendChild(member);
+
+            }
+          );
+
+        }
+
+
+
+        /*
+         * GET MENTOR REQUESTS
+         */
+
+        let mentorRequests = [];
+
+        try {
+
+          mentorRequests =
+            JSON.parse(
+              localStorage.getItem("mentorRequests") || "[]"
+            );
+
+        } catch (error) {
+
+          mentorRequests = [];
+
+        }
+
+
+
+        /*
+         * GET EMERGENCY REQUESTS
+         */
+
+        let emergencyRequests = [];
+
+        try {
+
+          emergencyRequests =
+            JSON.parse(
+              localStorage.getItem("emergencyRequests") || "[]"
+            );
+
+        } catch (error) {
+
+          emergencyRequests = [];
+
+        }
+
+
+
+        /*
+         * DISPLAY COUNTS
+         */
+
+        document.getElementById(
+          "mentorCount"
+        ).textContent =
+          mentorRequests.length;
+
+
+        document.getElementById(
+          "emergencyCount"
+        ).textContent =
+          emergencyRequests.length;
+
+
+
+        /*
+         * DISPLAY SUPPORT REQUESTS
+         */
+
+        const requests =
+          document.getElementById("requests");
+
+
+        if (
+          mentorRequests.length === 0 &&
+          emergencyRequests.length === 0
+        ) {
+
+          requests.innerHTML = `
+            <p class="muted">
+              No support requests received yet.
+            </p>
+          `;
+
+        } else {
+
+          requests.innerHTML = "";
+
+
+          /*
+           * MENTOR REQUESTS
+           */
+
+          mentorRequests.forEach(
+            function (request) {
+
+              const item =
+                document.createElement("div");
+
+
+              item.style.padding =
+                "12px";
+
+              item.style.marginBottom =
+                "10px";
+
+              item.style.borderBottom =
+                "1px solid #eee";
+
+
+              item.innerHTML = `
+
+                <strong>
+                  💬 Mentor Request
+                </strong>
+
+                <p class="muted">
+                  ${request.name || "Member"}
+                </p>
+
+                <p>
+                  ${request.message || "No message provided."}
+                </p>
+
+              `;
+
+
+              requests.appendChild(item);
+
+            }
+          );
+
+
+
+          /*
+           * EMERGENCY REQUESTS
+           */
+
+          emergencyRequests.forEach(
+            function (request) {
+
+              const item =
+                document.createElement("div");
+
+
+              item.style.padding =
+                "12px";
+
+              item.style.marginBottom =
+                "10px";
+
+              item.style.borderBottom =
+                "1px solid #eee";
+
+
+              item.innerHTML = `
+
+                <strong>
+                  🆘 Emergency Request
+                </strong>
+
+                <p class="muted">
+                  ${request.name || "Member"}
+                </p>
+
+                <p>
+                  ${request.message || "Emergency support requested."}
+                </p>
+
+              `;
+
+
+              requests.appendChild(item);
+
+            }
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

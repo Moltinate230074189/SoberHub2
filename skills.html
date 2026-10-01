@@ -1,1 +1,295 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sober Hub | Skills Hub</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="app-header"><a class="brand" href="index.html"><span class="logo">SH</span>Sober Hub</a><div style="display:flex;gap:10px;align-items:center"><a class="back" href="dashboard.html">← Dashboard</a><button class="btn outline" id="logoutBtn">Log out</button></div></header><main class="page"><span class="eyebrow">SKILLS LAB</span><h1>Learn. Build. Grow.</h1><p class="page-intro">Vocational training can help young people improve employability and build a productive future.</p><div class="grid three"><article class="card"><i>📱</i><h3>Cell Phone Repair</h3><p>Explore practical repair skills for future work or entrepreneurship.</p><button class="btn outline" data-toast="Cell phone repair module opened in prototype.">Start Module</button></article><article class="card featured"><i>☕</i><h3>Barista Training</h3><p>Develop hospitality-related skills for employment opportunities.</p><button class="btn primary" data-toast="Barista training module opened in prototype.">Start Module</button></article><article class="card"><i>💻</i><h3>Computer & Programming</h3><p>Build basic computer skills or explore programming fundamentals.</p><button class="btn outline" data-toast="Computer skills module opened in prototype.">Start Module</button></article></div><section class="dashcard" style="margin-top:18px"><h3>Local opportunities</h3><p class="muted">Skills Lab can connect suitable participants with internships at local businesses, depending on programme requirements and progress.</p></section></main><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Sober Hub | Skills Hub</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/style.css"
+  >
+
+</head>
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="app-header">
+
+    <a
+      class="brand"
+      href="index.html"
+      style="display:flex;align-items:center;gap:8px;"
+    >
+
+      <img
+        src="Logo.jpeg"
+        alt="Sober Hub Logo"
+        style="height:32px;width:32px;border-radius:6px;object-fit:cover;"
+      >
+
+      Sober Hub
+
+    </a>
+
+
+    <div
+      style="display:flex;gap:10px;align-items:center"
+    >
+
+      <a
+        class="back"
+        href="dashboard.html"
+      >
+        ← Dashboard
+      </a>
+
+      <button
+        class="btn outline"
+        id="logoutBtn"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="page">
+
+    <span class="eyebrow">
+      SKILLS LAB
+    </span>
+
+
+    <h1>
+      Learn. Build. Grow.
+    </h1>
+
+
+    <p class="page-intro">
+      Vocational training can help young people improve employability and build a productive future.
+    </p>
+
+
+
+    <!-- SKILLS -->
+
+    <div class="grid three">
+
+
+      <!-- CELL PHONE REPAIR -->
+
+      <article class="card">
+
+        <i>
+          📱
+        </i>
+
+        <h3>
+          Cell Phone Repair
+        </h3>
+
+        <p>
+          Explore practical repair skills for future work or entrepreneurship.
+        </p>
+
+        <button
+          class="btn outline"
+          data-toast="Cell phone repair module opened in prototype."
+          type="button"
+        >
+          Start Module
+        </button>
+
+      </article>
+
+
+
+      <!-- BARISTA TRAINING -->
+
+      <article class="card featured">
+
+        <i>
+          ☕
+        </i>
+
+        <h3>
+          Barista Training
+        </h3>
+
+        <p>
+          Develop hospitality-related skills for employment opportunities.
+        </p>
+
+        <button
+          class="btn primary"
+          data-toast="Barista training module opened in prototype."
+          type="button"
+        >
+          Start Module
+        </button>
+
+      </article>
+
+
+
+      <!-- COMPUTER & PROGRAMMING -->
+
+      <article class="card">
+
+        <i>
+          💻
+        </i>
+
+        <h3>
+          Computer &amp; Programming
+        </h3>
+
+        <p>
+          Build basic computer skills or explore programming fundamentals.
+        </p>
+
+        <button
+          class="btn outline"
+          data-toast="Computer skills module opened in prototype."
+          type="button"
+        >
+          Start Module
+        </button>
+
+      </article>
+
+
+    </div>
+
+
+
+    <!-- LOCAL OPPORTUNITIES -->
+
+    <section
+      class="dashcard"
+      style="margin-top:18px"
+    >
+
+      <h3>
+        Local opportunities
+      </h3>
+
+      <p class="muted">
+        Skills Lab can connect suitable participants with internships at local businesses, depending on programme requirements and progress.
+      </p>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!--
+    app.js is intentionally NOT loaded here.
+    This prevents the old script from redirecting
+    the page back to login.
+  -->
+
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+
+        /*
+         * CHECK LOGIN
+         */
+
+        const loggedInUser =
+          localStorage.getItem("loggedInUser");
+
+
+        if (!loggedInUser) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+
+        /*
+         * START MODULE BUTTONS
+         */
+
+        const moduleButtons =
+          document.querySelectorAll(
+            "[data-toast]"
+          );
+
+
+        moduleButtons.forEach(
+          function (button) {
+
+            button.addEventListener(
+              "click",
+              function () {
+
+                alert(
+                  button.getAttribute("data-toast")
+                );
+
+              }
+            );
+
+          }
+        );
+
+
+
+        /*
+         * LOG OUT
+         */
+
+        const logoutButton =
+          document.getElementById("logoutBtn");
+
+
+        logoutButton.addEventListener(
+          "click",
+          function () {
+
+            localStorage.removeItem(
+              "loggedInUser"
+            );
+
+            window.location.href =
+              "login.html";
+
+          }
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
